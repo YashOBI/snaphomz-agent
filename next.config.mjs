@@ -8,9 +8,15 @@ const nextConfig = {
       'dx41nk9nsacii.cloudfront.net',
       'ocrealbucket.s3.amazonaws.com',
       'ocrealstoragebucket.s3.eu-north-1.amazonaws.com',
-      'imagecdn.realty.com'
+      'imagecdn.realty.com',
+      'ssl.cdn-redfin.com'
     ],
     remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ssl.cdn-redfin.com',
+        port: ''
+      },
       {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',

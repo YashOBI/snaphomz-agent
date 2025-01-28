@@ -14,6 +14,12 @@ export const AGENT_BACKEND_SERVICE = process.env.NEXT_PUBLIC_AUTH_SERIVCE_GRAPHQ
 
 export const AGENTS_BACKEND_SERVICE = process.env.NEXT_PUBLIC_AGENTS_SERIVCE_GRAPHQL_URL||  'http://localhost:4003/graphql'
 
+export const COMMUNICATION_SOCKET_URI = process.env.NEXT_PUBLIC_COMMUNICATION_SOCKET_URI || 'ws://localhost:4002'
+
+export const COMMUNICATION_SERVICE_URI = process.env.NEXT_PUBLIC_COMMUNICATION_SERVICE_URI || 'http://localhost:4002'
+
+export const GET_MESSAGE_PROPERTY_MESSAGE_THREADS = `${COMMUNICATION_SERVICE_URI}/conversations/threads`
+
 export const deploymentEnv = process.env.NEXT_PUBLIC_ENVIROMENT_URL
 export const mlsDeploymentEnv = process.env.NEXT_PUBLIC_MLS_ENVIROMENT_URL
 export const publicDomain = process.env.NEXT_PUBLIC_DOMAIN

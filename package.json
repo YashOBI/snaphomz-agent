@@ -29,6 +29,7 @@
     "jotai": "^2.9.0",
     "jotai-tanstack-query": "^0.8.5",
     "jspdf": "^2.5.1",
+    "lucide-react": "^0.474.0",
     "next": "14.2.4",
     "pdfjs-dist": "^4.5.136",
     "react": "^18",
@@ -37,6 +38,8 @@
     "react-hook-form": "^7.52.1",
     "react-search-autocomplete": "^8.5.2",
     "react-toastify": "^10.0.5",
+    "socket": "^0.14.40",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^2.4.0",
     "wonka": "^6.3.4",
     "yup": "^1.4.0"
