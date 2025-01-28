@@ -1,0 +1,28 @@
+{
+  "extends": ["next", "next/core-web-vitals", "eslint:recommended", "prettier"],
+  "rules": {
+    "no-unused-vars": "warn",
+    "prettier/prettier": "warn",
+    "no-console": "warn"
+  },
+  "globals": {
+    "React": true,
+    "JSX": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ],
+  "plugins": ["prettier"]
+}
