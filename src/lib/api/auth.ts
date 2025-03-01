@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 
 import React, { useEffect } from 'react'
 import {
+  AGENTS_BACKEND_SERVICE,
   AGENT_BACKEND_SERVICE,
   AUTH_TOKEN,
   FIT_FOR_PURPOSE,
@@ -34,7 +35,7 @@ const loginAgent = atomWithMutation(() => ({
       const prudding = generateSHAString(data.email)
       storeCookie({ key: SECURE_LOGIN_KEY, value: prudding })
 
-      const response = await axios.post(AGENT_BACKEND_SERVICE, {
+      const response = await axios.post(AGENTS_BACKEND_SERVICE, {
         query: `
      mutation LoginAgent($input: LoginAgentDto!) {
     login(input: $input) {

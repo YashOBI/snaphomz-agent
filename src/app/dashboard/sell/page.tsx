@@ -17,6 +17,7 @@ import { showToast } from 'utils/toastHelper'
 import Modal from 'components/common/Modal'
 import { useAtom } from 'jotai'
 import { agentReadWriteAtom } from 'store/atoms/agent-atom'
+import { EmptyPlaceholder } from 'components/common/EmptyPlaceholder'
 
 const Sell = () => {
   const [agentState] = useAtom(agentReadWriteAtom)
@@ -106,7 +107,7 @@ const Sell = () => {
       </section>
       {isLoading ? (
         <LoadingState keyType="svg" />
-      ) : (
+      ) : data?.length > 0 ? (
         <>
           {currentView === 'grid' ? (
             <section className="grid grid-cols-3 gap-4 place-items-center gap-y-14">
@@ -172,7 +173,15 @@ const Sell = () => {
             </section>
           )}
         </>
-      )}
+      )
+       : (
+        <EmptyPlaceholder
+          EmptyPlaceHolderImage="/assets/images/icons/overview.svg"
+          title="Properties"
+          description="There are currently no properties available for sale"
+        />
+       )
+      }
     </section>
   )
 }

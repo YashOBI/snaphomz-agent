@@ -4,6 +4,7 @@ import { RoundedButton } from 'components/common/buttons/RoundedButton'
 import { useAtom } from 'jotai'
 import { useAuthApi } from 'lib/api/auth'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { agentReadWriteAtom } from 'store/atoms/agent-atom'
 
@@ -13,6 +14,7 @@ type NavsideRightProps = {
 
 const NavRightSide: React.FC<NavsideRightProps> = ({ hasbutton = true }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false)
+  const router = useRouter()
   const { LogoutAction } = useAuthApi()
 
   const handleMouseEnter = () => setDropdownVisible(true)
@@ -33,6 +35,9 @@ const NavRightSide: React.FC<NavsideRightProps> = ({ hasbutton = true }) => {
         ? { ...agentState.user, agentType: newAgentType }
         : undefined,
     })
+    router.push( agentState?.user?.agentType === 'seller_agent'
+      ? '/dashboard/buy'
+      : '/dashboard/sell')
   }
 
   return (
@@ -44,8 +49,8 @@ const NavRightSide: React.FC<NavsideRightProps> = ({ hasbutton = true }) => {
             className="border-2 border-black bg-transparent text-black font-bold py-2"
             label={
               agentState?.user?.agentType === 'buyer_agent'
-                ? 'Switch to Seller'
-                : 'Switch to Buyer'
+                ? 'Switch to Seller Agent'
+                : 'Switch to Buyer Agent'
             }
             onClick={handleSwitchAgentType}
           />

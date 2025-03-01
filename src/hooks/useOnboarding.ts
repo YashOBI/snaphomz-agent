@@ -5,7 +5,7 @@ import { Client } from 'lib/baseUrlClient'
 import { pickErrorMessage, pickResult } from 'lib/client'
 import { generateSHAString } from 'lib/helpers/generateSHAString'
 import { getAuthToken, getStoredCookie, storeCookie } from 'lib/storage'
-import { AGENT_BACKEND_SERVICE, AUTH_TOKEN, SECURE_LOGIN_KEY } from 'shared/constants/env'
+import { AGENTS_BACKEND_SERVICE, AGENT_BACKEND_SERVICE, AUTH_TOKEN, SECURE_LOGIN_KEY } from 'shared/constants/env'
 import { showToast } from 'utils/toastHelper'
 
 
@@ -18,10 +18,10 @@ import { showToast } from 'utils/toastHelper'
 
 const sendVerificationEmail = async (data) => {
   try {
-    const response = await axios.post(AGENT_BACKEND_SERVICE, {
+    const response = await axios.post(AGENTS_BACKEND_SERVICE, {
       query: `
-        mutation SendVerification($payload: SendVerificationInput!) {
-          sendVerification(payload: $payload)
+        mutation SendAgentVerification($payload: SendAgentVerificationInput!) {
+          sendAgentVerification(payload: $payload)
         }
       `,
       variables: {
@@ -31,12 +31,10 @@ const sendVerificationEmail = async (data) => {
         },
       },
     });
-
     // Check for errors in the GraphQL response
     if (response?.data?.errors?.length) {
       throw new Error(response.data.errors[0]?.message || 'Unknown error occurred');
     }
-
     return response.data;
   } catch (error) {
     // Normalize the error to ensure it can be handled consistently
@@ -88,44 +86,13 @@ export const useResendVerificationEmail = () => {
   return [{ mutateResendVerificationEmail }]
 }
 
-// const verifyAgentCode = async (body) => {
-//   return await Client.post(`auth/agent/verify/code`, {
-//     body: JSON.stringify(body)
-//   }).then(pickResult, pickErrorMessage)
-// }
 
-// const verifyAgentCode = async (data) => {
-//   try {
-//     const response = await axios.post(AGENT_BACKEND_SERVICE, {
-//       query: `
-//        mutation VerifyOtp($verifyOtpInput: VerifyOtpInput!) {
-//        verifyOtp(verifyOtpInput: $verifyOtpInput) {
-//        access_token
-//        refresh_token
-//       }
-//        }
-//       `,
-//       variables: {
-//         verifyOtpInput: {
-//           email:data?.email,
-//           otp: data?.code
-//         }
-//       },
-//     });
-//     if (response?.data?.errors) {
-//       throw response?.data?.errors;
-//     }
-//     return response.data
-//   } catch (error) {
-//     throw error;  // Rethrowing the error to handle it in the mutation
-//   }
-// }
 
 const verifyAgentCode = async (data) => {
-  const response = await axios.post(AGENT_BACKEND_SERVICE, {
+  const response = await axios.post(AGENTS_BACKEND_SERVICE, {
     query: `
-      mutation VerifyOtp($verifyOtpInput: VerifyOtpInput!) {
-        verifyOtp(verifyOtpInput: $verifyOtpInput) {
+      mutation VerifyAgentOtp($verifyOtpInput: VerifyOtpInput!) {
+        verifyAgentOtp(verifyOtpInput: $verifyOtpInput) {
           access_token
           refresh_token
         }
@@ -173,7 +140,7 @@ const updateAgentProfile = async (body) => {
   try {
     const token = getAuthToken()
 
-    const response = await axios.post(AGENT_BACKEND_SERVICE, {
+    const response = await axios.post(AGENTS_BACKEND_SERVICE, {
       query: `
       mutation UpdateAgent($input: CompleteAgentSignUpInput!) {
       updateAgent(completeAgentSignUpInput: $input) {
